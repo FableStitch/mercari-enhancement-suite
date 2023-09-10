@@ -67,7 +67,6 @@ test('fix blurry images', async (t) => {
   }
 
   const results = await replace(options)
-  console.log(results)
   t.ok(results[0].hasChanged)
   t.end()
 })
