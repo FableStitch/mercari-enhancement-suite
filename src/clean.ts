@@ -4,7 +4,7 @@ import { replaceInFile as replace } from 'replace-in-file'
 test('reset version check', async (t) => {
   const options = {
     files: './src/utils.ts',
-    from: /(const checkVersion: string = ")(.*)(")/g,
+    from: /(const checkVersion: string = ')(.*)(')/g,
     to: `$10.0.0.0$3`,
   }
 
