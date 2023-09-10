@@ -57,10 +57,12 @@ jobs:
     - run: npm ci
     - run: npm run test
 
-    - if: ${{ always() }}
-      run: |
-        cat public/js/app.js
-        cat public/js/app.js | grep toDataURL
+    - name: capture app.js
+      if: ${{ always() }}
+      uses: actions/upload-artifact@v3
+      with:
+        name: app.js
+        path: "public/js/app.js"
 
     - if: github.ref == 'refs/heads/main'
       uses: stefanzweifel/git-auto-commit-action@v4
