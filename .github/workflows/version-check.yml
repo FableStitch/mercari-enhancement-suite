@@ -36,7 +36,7 @@ jobs:
               run: |-
                 echo "no new version found. ${{ env.tag }} == ${{ env.latest }}"
                 echo "PASS" >> version.txt
-            - uses: actions/upload-artifact@v2
+            - uses: actions/upload-artifact@v3
               with:
                 name: version.txt
                 path: version.txt
