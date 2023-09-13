@@ -33,7 +33,8 @@ jobs:
         id: version-check
         run:
           echo "version=$(cat version.txt)" >> "$GITHUB_ENV"
-      - if: ${{ env.version == "PASS" }}
+      - name: no need to run
+        if: env.version == 'PASS'
         run: exit 1
       - uses: actions/checkout@v4
       - name: Use Node.js 16.x
