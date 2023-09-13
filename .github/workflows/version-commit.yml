@@ -43,7 +43,7 @@ jobs:
       - run: npm ci
       - name: npm run test
         run: npm run test
-      - run: echo "newVersion=$(cat version.txt)" >> "$GITHUB_ENV"
+      - run: echo "version=$(cat version.txt)" >> "$GITHUB_ENV"
       - name: commit our changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
