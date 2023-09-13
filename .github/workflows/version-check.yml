@@ -30,7 +30,7 @@ jobs:
               if: ${{ env.tag != env.latest }}
               run: |
                 echo "new version found. ${{ env.tag }} -> ${{ env.latest }}"
-                echo "newVersion=true" >> version.txt
+                echo "${{ env.latest }}" >> version.txt
             - name: versions are equal
               if: ${{ env.tag == env.latest }}
               run: |-
