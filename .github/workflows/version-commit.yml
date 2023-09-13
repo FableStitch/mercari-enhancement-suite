@@ -33,7 +33,7 @@ jobs:
         id: version-check
         run:
           echo "version=$(cat version.txt)" >> "$GITHUB_ENV"
-      - if: ${{ version-check == "PASS" }}
+      - if: ${{ env.version == "PASS" }}
         run: exit 1
       - uses: actions/checkout@v4
       - name: Use Node.js 16.x
@@ -47,7 +47,7 @@ jobs:
       - name: commit our changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: "automatic update to ${{ env.newVersion }}"
+          commit_message: "automatic update to ${{ env.version }}"
           commit_options: '--no-verify'
       - name: Slack Notify of Failure
         uses: rtCamp/action-slack-notify@v2
