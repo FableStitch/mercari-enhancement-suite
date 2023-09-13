@@ -3,41 +3,41 @@ on:
     schedule:
         - cron: '*/15 * * * *'
 jobs:
-    check-for-new-version:
-        runs-on: ubuntu-latest
-        outputs:
-          newVersion: ${{ steps.newVersion.outputs.newVersion }}
-        steps:
-            - uses: actions/checkout@v4
-              with:
-                fetch-depth: 0
-            - name: Use Node.js 16.x
-              uses: actions/setup-node@v3
-              with:
-                node-version: '16.20.1'
-            - name: Cache dependencies
-              uses: actions/cache@v3
-              with:
-                    path: ~/.npm
-                    key: npm-${{ hashFiles('package-lock.json') }}
-                    restore-keys: npm-
-            - run: npm ci
-            - name: git tag sort by reverse committerdate
-              run: echo "tag=$(git tag --sort=-committerdate | head -n 1)" >> "$GITHUB_ENV"
-            - name: get latest version
-              run: echo "latest=$(npm run get-latest-version | tail -n 1)" >> "$GITHUB_ENV"
-            - name: versions are not equal!
-              id: newVersion
-              if: ${{ env.tag != env.latest }}
-              run: |
-                echo "new version found. ${{ env.tag }} -> ${{ env.latest }}"
-                echo "${{ env.latest }}" >> version.txt
-            - name: versions are equal
-              if: ${{ env.tag == env.latest }}
-              run: |-
-                echo "no new version found. ${{ env.tag }} == ${{ env.latest }}"
-                echo "PASS" >> version.txt
-            - uses: actions/upload-artifact@v3
-              with:
-                name: version.txt
-                path: version.txt
+  check-for-new-version:
+    runs-on: ubuntu-latest
+    outputs:
+      newVersion: ${{ steps.newVersion.outputs.newVersion }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.20.1'
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: npm-${{ hashFiles('package-lock.json') }}
+          restore-keys: npm-
+      - run: npm ci
+      - name: git tag sort by reverse committerdate
+        run: echo "tag=$(git tag --sort=-committerdate | head -n 1)" >> "$GITHUB_ENV"
+      - name: get latest version
+        run: echo "latest=$(npm run get-latest-version | tail -n 1)" >> "$GITHUB_ENV"
+      - name: versions are not equal!
+        id: newVersion
+        if: ${{ env.tag != env.latest }}
+        run: |
+          echo "new version found. ${{ env.tag }} -> ${{ env.latest }}"
+          echo "${{ env.latest }}" >> version.txt
+      - name: versions are equal
+        if: ${{ env.tag == env.latest }}
+        run: |-
+          echo "no new version found. ${{ env.tag }} == ${{ env.latest }}"
+          echo "PASS" >> version.txt
+      - uses: actions/upload-artifact@v3
+        with:
+          name: version.txt
+          path: version.txt
