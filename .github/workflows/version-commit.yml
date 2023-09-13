@@ -14,7 +14,7 @@ jobs:
         with:
           result-encoding: string
           script: |
-            const result = await octokit.request('GET /repos/{owner}/{repo}/actions/runs/{run_id}/artifacts', {
+            const result = await github.request('GET /repos/{owner}/{repo}/actions/runs/{run_id}/artifacts', {
               owner: '${{github.repository_owner}}',
               repo: '${{github.event.repository.name}}',
               run_id: ${{github.event.workflow_run.id}}
