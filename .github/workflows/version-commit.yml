@@ -36,7 +36,7 @@ jobs:
           echo "version=$(cat version.txt)" >> "$GITHUB_ENV"
       - name: no need to run
         if: env.version == 'PASS'
-        run: exit 0
+        run: exit 1
       - uses: actions/checkout@v4
       - name: Use Node.js 16.x
         uses: actions/setup-node@v3
@@ -53,7 +53,7 @@ jobs:
           commit_options: '--no-verify'
       - name: Slack Notify of Failure
         uses: rtCamp/action-slack-notify@v2
-        if: failure()
+        if: failure() && env.version != 'PASS'
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
           SLACK_USERNAME: release-bot
