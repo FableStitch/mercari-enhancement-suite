@@ -26,7 +26,7 @@ jobs:
           echo "${{steps.get-artifact-id.outputs.result}}"
           curl -L -H "Authorization: token ${{github.token}}" \
             -H "Accept: application/vnd.github.v3+json" \
-            -O variables.zip \
+            --output variables.zip \
             https://api.github.com/repos/${{github.repository}}/actions/artifacts/${{steps.get-artifact-id.outputs.result}}/zip
           unzip variables.zip
       - name: check if needed
