@@ -19,7 +19,7 @@ jobs:
               repo: '${{github.event.repository.name}}',
               run_id: ${{github.event.workflow_run.id}}
             })
-            console.log(result.toJSON())
+            console.log(result)
             return result.data.artifacts[0].id
       - name: Get result
         run: |
