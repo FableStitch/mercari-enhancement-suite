@@ -1,8 +1,8 @@
 on:
   workflow_run:
-      workflows: ["version-check"]
-      types:
-          - completed
+    workflows: ["version-check"]
+    types:
+      - completed
 jobs:
   trigger-version-update:
     runs-on: ubuntu-latest
