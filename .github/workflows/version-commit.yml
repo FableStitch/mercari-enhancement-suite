@@ -1,3 +1,4 @@
+name: version-commit
 on:
   workflow_run:
     workflows: ["version-check"]
